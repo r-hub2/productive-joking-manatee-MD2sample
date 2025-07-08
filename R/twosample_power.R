@@ -21,7 +21,7 @@
 #' @param  doMethods ="all" which methods should be included?
 #' @return A numeric vector of power values.
 #' @examples
-#' #Note that the resulting power estimates are almost meaningless because
+#' #Note that the resulting power estimates are meaningless because
 #' #of the extremely low number of simulation runs B, required because of CRAN timing rule
 #' #
 #' #Power of tests when one data set comes from a standard normal multivariate distribution function
@@ -35,13 +35,13 @@
 #'  y=mvtnorm::rmvnorm(120, sigma = S)
 #'  list(x=x, y=y)
 #' }
-#' twosample_power(f, c(0,0.5), B=30, maxProcessor=1)
+#' #' twosample_power(f, c(0,0.5), B=10, maxProcessor=1)
 #' #Power of use supplied test. Example is a (included) chi-square test:
 #' TSextra=list(which="statistics", nbins=rbind(c(3,3), c(4,4)))
-#' twosample_power(f, c(0, 0.5), TS=chiTS.cont, TSextra=TSextra, B=30, maxProcessor=1)
+#' twosample_power(f, c(0, 0.5), TS=chiTS.cont, TSextra=TSextra, B=10, maxProcessor=1)
 #' #Same example, but this time the user supplied routine calculates p values:
 #' TSextra=list(which="pvalues", nbins=c(4,4))
-#' twosample_power(f, c(0, 0.5), TS=chiTS.cont, TSextra=TSextra, B=30, 
+#' twosample_power(f, c(0, 0.5), TS=chiTS.cont, TSextra=TSextra, B=10, 
 #'              With.p.value=TRUE, maxProcessor=1)
 #' #Example for discrete data
 #' g=function(p1, p2) {
@@ -49,7 +49,7 @@
 #'   y = table(sample(1:4, size=500, replace = TRUE, prob=c(p1,p2,1,1)))
 #'   cbind(vals_x=rep(1:2,2),  vals_y=rep(1:2, each=2), x=x, y=y)
 #' }  
-#' twosample_power(g, 1.5, 1.6, B=30, maxProcessor=1)
+#' twosample_power(g, 1.5, 1.6, B=10, maxProcessor=1)
 #' @export 
 twosample_power=function(f, ..., TS, TSextra, alpha=0.05, B=1000, 
             nbins=c(5,5), minexpcount =5, Ranges=matrix(c(-Inf, Inf, -Inf, Inf),2,2),

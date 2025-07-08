@@ -32,7 +32,7 @@ The highlights of this package are:
 -  tests can be combined and a single adjusted p value found  
 -  it uses Rcpp and parallel programming to be very fast.  
 -  it includes routines that make power studies very simple.  
--  it has a routine that runs (up to) 30 different case studies, comparing the power of a new method to those included in the package. This will make it very easy for someone who has developed a new method to compare its performance vs. those included in the package.
+-  it has a routine that runs (up to) 40 different case studies, comparing the power of a new method to those included in the package. This will make it very easy for someone who has developed a new method to compare its performance vs. those included in the package.
 
 ## Continuous Data
 
@@ -47,8 +47,10 @@ set.seed(123)
 ```{r}
 x1 = mvtnorm::rmvnorm(100, c(0,0))
 y1 = mvtnorm::rmvnorm(120, c(0,0))
-twosample_test(x1, y1, B=B)
+twosample_test(x1, y1, B=B, maxProcessor = 1)
 ```
+
+**Note** that all examples are run without parallel processing and a small number of simulation runs to satisfy CRAN submission rules
 
 **Arguments of twosample_test**
 
@@ -63,12 +65,13 @@ twosample_test(x1, y1, B=B)
 -  *rnull* routine that generates data under the null hypothesis, for hybrid problem (see below). 
 -  *DoTransform=TRUE* should data be transfomed to unit hypercube?  
 -  *SuppressMessages=FALSE* should informative messages be printed? 
--  *maxProcessor* maximum number of cores to use. If missing (the default) no parallel processing is used.
+-  *maxProcessor* maximum number of cores to use. If missing (the default) no parallel processing is used.  
+-  *doMethods="all"* names of method to include.
 
 
 ### New Tests
 
-The included routine *chiTS.cont* finds either the test statistic or the p value of a chi square test in two dimensions. First we need to set
+The routine *chiTS.cont* (included in the package) finds either the test statistic or the p value of a chi square test in two dimensions. First we need to set
 
 ```{r}
 TSextra=list(which="statistic", nbins=cbind(c(3,3), c(3,4)))
@@ -81,7 +84,8 @@ this list is passed to *chiTS.cont* and tells the routine to
 
 
 ```{r}
-twosample_test(x1, y1, TS=chiTS.cont, TSextra=TSextra, B=B)
+twosample_test(x1, y1, TS=chiTS.cont, TSextra=TSextra, 
+               B=B, maxProcessor = 1)
 ```
 
 **Arguments and output of new test routine for continuous data**
@@ -96,7 +100,8 @@ If the routine is written in Rcpp parallel programming is not available.
 If several tests are run one can use the routine *twosample_test_adjusted_pvalue* to find a p value that is adjusted for simultaneous testing:
 
 ```{r}
-twosample_test_adjusted_pvalue(x1, y1, B=c(B,B), maxProcessor = 1)
+twosample_test_adjusted_pvalue(x1, y1, B=c(B,B),
+                               maxProcessor = 1)
 ```
 
 ### Power Estimation
@@ -139,6 +144,8 @@ twosample_power(f, c(0,0.5), B=B, maxProcessor=1)
 -  *DoTransform=TRUE* should data be transformed to unit hypercube?  
 -  *SuppressMessages=FALSE* should informative messages be printed?  
 -  *LargeSampleOnly=FALSE* should only methods with large sample theories be run?  
+-  *doMethods="all"* names of method to include.
+
 
 Again the user can provide their own routine:
 
@@ -172,7 +179,7 @@ twosample_power(f1, c(0,0.5), c(100, 120),
 
 ## Discrete Data
 
-First note that discrete data is implemented only in two dimensions. 
+First note that tests for discrete data are implemented only in two dimensions. 
 
 ### Example 3
 
@@ -195,12 +202,12 @@ for(i in 0:5) {
     x2[x2[,1]==i&x2[,2]==j, 4]=sum(a1y==i&a2y==j)
   }
 }
-twosample_test(x2, B=100)
+twosample_test(x2, B=B, maxProcessor = 1)
 ```
 
 **Arguments of twosample_test**
 
-As in the case of continuous data the arguments include *TS*, *TSextra*, *minexpcount*, *rnull* and *maxProcessor*. In addition we now have
+As in the case of continuous data the arguments include *TS*, *TSextra*, *minexpcount*, *rnull*, *maxProcessor* and *doMethods*. In addition we now have
 
 -  *x* either a vector of counts for first variable, or a matrix with columns vals_x, vals_y, x and y.  
 - *y* vector with counts of second variable  
@@ -218,11 +225,12 @@ twosample_test_adjusted_pvalue(x2, B=c(B,B), maxProcessor=1)
 
 ### User supplied tests
 
-The included routine *chiTS.disc* does a chi-square test for discrete data:
+The routine *chiTS.disc* (included in package) does a chi-square test for discrete data:
 
 ```{r}
 TSextra=list(which="statistic")
-twosample_test(x2, TS=chiTS.disc, TSextra=TSextra)
+twosample_test(x2, TS=chiTS.disc, TSextra=TSextra,
+               B=B, maxProcessor = 1)
 ```
 
 
@@ -266,7 +274,8 @@ twosample_power(g, c(0, 0.25, 0.5), B=200,
                 TS=chiTS.disc, TSextra=TSextra, maxProcessor=1)
 TSextra=list(which="pvalue")
 twosample_power(g, c(0, 0.25, 0.5), B=200, 
-    TS=chiTS.disc, TSextra=TSextra, With.p.value = TRUE, maxProcessor=1)
+    TS=chiTS.disc, TSextra=TSextra, With.p.value = TRUE,
+    maxProcessor=1)
 ```
 
 ## Benchmarking 
@@ -319,7 +328,8 @@ run.studies(Continuous=TRUE,
                 TSextra=TSextra,
                 With.p.value = TRUE, 
                 B=500,
-                SuppressMessages = TRUE)
+                SuppressMessages = TRUE,
+                maxProcessor=1)
 ```
 
 ## Goodness-of-fit / twosample hybrid problem.
@@ -349,24 +359,25 @@ rnull=function(dta) {
 
 ```{r}
 dta=f(0) # Null hypothesis is true
-twosample_test(dta, rnull=rnull, B=500)
+twosample_test(dta, rnull=rnull, B=B, maxProcessor = 1)
 ```
 
 ```{r}
 dta=f(0.2) # Null hypothesis is false
-twosample_test(dta, rnull=rnull, B=500)
+twosample_test(dta, rnull=rnull, B=B, maxProcessor = 1)
 ```
 
 Again we can find adjusted p values:
 
 ```{r eval=FALSE}
-twosample_test_adjusted_pvalue(dta, rnull=rnull, B=500, maxProcessor = 1)
+twosample_test_adjusted_pvalue(dta, rnull=rnull, 
+                               B=B, maxProcessor = 1)
 ```
 
 and find the power of the tests:
 
 ```{r eval=FALSE}
-twosample_power(f, c(0, 0.5), rnull=rnull, B=500, maxProcessor=1)
+twosample_power(f, c(0, 0.5), rnull=rnull, B=B, maxProcessor=1)
 ```
 
 
@@ -475,7 +486,7 @@ These tests, discussed in [@chen2017], are implemented in the *gTests* [@gtests2
 
 **Ball Divergence test**
 
-A test described in [@ball2018] and implemented in the Rpackage [@ballpackage2021].
+A test described in [@ball2018] and implemented in the R package [@ballpackage2021].
 
 ## Methods included in MD2sample for discrete data
 

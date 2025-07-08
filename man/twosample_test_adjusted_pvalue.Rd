@@ -62,9 +62,9 @@ This function runs a number of two sample tests using Rcpp and parallel computin
 #Two continuous data sets from a multivariate normal:
 x = mvtnorm::rmvnorm(100, c(0,0))
 y = mvtnorm::rmvnorm(120, c(0,0))
-twosample_test_adjusted_pvalue(x, y, maxProcessor=1, B=50)
+twosample_test_adjusted_pvalue(x, y, maxProcessor=1, B=20)
 #Two discrete data sets from some distribution:
 x = table(sample(1:4, size=1000, replace = TRUE))
 y = table(sample(1:4, size=500, replace = TRUE, prob=c(1, 1.5, 1, 1)))
-twosample_test_adjusted_pvalue(x, y, rep(1:2,2), rep(1:2, each=2), maxProcessor=1, B=50)
+twosample_test_adjusted_pvalue(x, y, rep(1:2,2), rep(1:2, each=2), maxProcessor=1, B=20)
 }

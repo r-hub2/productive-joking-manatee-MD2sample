@@ -13,6 +13,7 @@
 #'                  If missing included values are used.
 #' @param SuppressMessages =FALSE, should messages be printed
 #' @param B = 1000
+#' @param  maxProcessor maximum number of cores to use. If missing (the default) no parallel processing is used.
 #' @return A (list of ) matrices of p.values
 #' @examples
 #' #The new test is a (included) chi square test:
@@ -22,7 +23,7 @@
 #' @export
 run.studies <- function(Continuous=TRUE, study, TS, TSextra, With.p.value=FALSE,  
           nsample=200, alpha=0.05, param_alt, 
-          SuppressMessages =FALSE, B=1000) {
+          SuppressMessages =FALSE, B=1000, maxProcessor) {
   list.of.studies=MD2sample::case.studies(ReturnCaseNames=TRUE)
   if(missing(study)) study=1:length(list.of.studies)
   if(is.numeric(study)) study=list.of.studies[study]
@@ -58,7 +59,8 @@ run.studies <- function(Continuous=TRUE, study, TS, TSextra, With.p.value=FALSE,
            tmp=MD2sample::case.studies(study[i], nbins=tmp$nbins)
         if(!SuppressMessages) message(paste("Running case study", study[i],"..."))
         out[[i]]=MD2sample::twosample_power(tmp$f, param_alt[i,], 
-                      alpha=alpha,  SuppressMessages=SuppressMessages, B=B) 
+                      alpha=alpha,  SuppressMessages=SuppressMessages, 
+                      B=B, maxProcessor=maxProcessor) 
       }  
       if(length(out)==1) return(out[[1]])
       return(out)
@@ -82,7 +84,8 @@ run.studies <- function(Continuous=TRUE, study, TS, TSextra, With.p.value=FALSE,
     }    
     else  pwrTS=MD2sample::twosample_power(tmp$f, tmp$param_alt[2], 
                                    TS=TS, TSextra=TSextra, alpha=alpha,  
-                                   SuppressMessages=SuppressMessages, B=B)   
+                                   SuppressMessages=SuppressMessages,
+                                   B=B, maxProcessor=maxProcessor)   
     if(i==1) {
       allpwr=pwr[study, , drop=FALSE]
       for(m in 1:length(pwrTS)) allpwr=cbind(0, allpwr)

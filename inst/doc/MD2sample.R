@@ -14,16 +14,18 @@ set.seed(123)
 ## -----------------------------------------------------------------------------
 x1 = mvtnorm::rmvnorm(100, c(0,0))
 y1 = mvtnorm::rmvnorm(120, c(0,0))
-twosample_test(x1, y1, B=B)
+twosample_test(x1, y1, B=B, maxProcessor = 1)
 
 ## -----------------------------------------------------------------------------
 TSextra=list(which="statistic", nbins=cbind(c(3,3), c(3,4)))
 
 ## -----------------------------------------------------------------------------
-twosample_test(x1, y1, TS=chiTS.cont, TSextra=TSextra, B=B)
+twosample_test(x1, y1, TS=chiTS.cont, TSextra=TSextra, 
+               B=B, maxProcessor = 1)
 
 ## -----------------------------------------------------------------------------
-twosample_test_adjusted_pvalue(x1, y1, B=c(B,B), maxProcessor = 1)
+twosample_test_adjusted_pvalue(x1, y1, B=c(B,B),
+                               maxProcessor = 1)
 
 ## -----------------------------------------------------------------------------
 f=function(a=0) {
@@ -75,14 +77,15 @@ for(i in 0:5) {
     x2[x2[,1]==i&x2[,2]==j, 4]=sum(a1y==i&a2y==j)
   }
 }
-twosample_test(x2, B=100)
+twosample_test(x2, B=B, maxProcessor = 1)
 
 ## -----------------------------------------------------------------------------
 twosample_test_adjusted_pvalue(x2, B=c(B,B), maxProcessor=1)
 
 ## -----------------------------------------------------------------------------
 TSextra=list(which="statistic")
-twosample_test(x2, TS=chiTS.disc, TSextra=TSextra)
+twosample_test(x2, TS=chiTS.disc, TSextra=TSextra,
+               B=B, maxProcessor = 1)
 
 ## -----------------------------------------------------------------------------
 g=function(a=0) {
@@ -116,7 +119,8 @@ twosample_power(g, c(0, 0.25, 0.5), B=200,
                 TS=chiTS.disc, TSextra=TSextra, maxProcessor=1)
 TSextra=list(which="pvalue")
 twosample_power(g, c(0, 0.25, 0.5), B=200, 
-    TS=chiTS.disc, TSextra=TSextra, With.p.value = TRUE, maxProcessor=1)
+    TS=chiTS.disc, TSextra=TSextra, With.p.value = TRUE,
+    maxProcessor=1)
 
 ## ----eval=FALSE---------------------------------------------------------------
 # run.studies(Continuous=TRUE,
@@ -138,7 +142,8 @@ run.studies(Continuous=TRUE,
                 TSextra=TSextra,
                 With.p.value = TRUE, 
                 B=500,
-                SuppressMessages = TRUE)
+                SuppressMessages = TRUE,
+                maxProcessor=1)
 
 ## -----------------------------------------------------------------------------
 f=function(a) {
@@ -156,15 +161,16 @@ rnull=function(dta) {
 
 ## -----------------------------------------------------------------------------
 dta=f(0) # Null hypothesis is true
-twosample_test(dta, rnull=rnull, B=500)
+twosample_test(dta, rnull=rnull, B=B, maxProcessor = 1)
 
 ## -----------------------------------------------------------------------------
 dta=f(0.2) # Null hypothesis is false
-twosample_test(dta, rnull=rnull, B=500)
+twosample_test(dta, rnull=rnull, B=B, maxProcessor = 1)
 
 ## ----eval=FALSE---------------------------------------------------------------
-# twosample_test_adjusted_pvalue(dta, rnull=rnull, B=500, maxProcessor = 1)
+# twosample_test_adjusted_pvalue(dta, rnull=rnull,
+#                                B=B, maxProcessor = 1)
 
 ## ----eval=FALSE---------------------------------------------------------------
-# twosample_power(f, c(0, 0.5), rnull=rnull, B=500, maxProcessor=1)
+# twosample_power(f, c(0, 0.5), rnull=rnull, B=B, maxProcessor=1)
 

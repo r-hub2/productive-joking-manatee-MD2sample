@@ -14,7 +14,8 @@ run.studies(
   alpha = 0.05,
   param_alt,
   SuppressMessages = FALSE,
-  B = 1000
+  B = 1000,
+  maxProcessor
 )
 }
 \arguments{
@@ -38,6 +39,8 @@ If missing included values are used.}
 \item{SuppressMessages}{=FALSE, should messages be printed}
 
 \item{B}{= 1000}
+
+\item{maxProcessor}{maximum number of cores to use. If missing (the default) no parallel processing is used.}
 }
 \value{
 A (list of ) matrices of p.values
