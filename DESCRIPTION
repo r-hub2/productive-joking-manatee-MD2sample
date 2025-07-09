@@ -22,6 +22,6 @@ VignetteBuilder: knitr
 Depends: R (>= 3.5)
 LazyData: true
 NeedsCompilation: yes
-Packaged: 2025-07-08 17:04:38 UTC; Wolfgang
+Packaged: 2025-07-09 10:26:33 UTC; Wolfgang
 Author: Wolfgang Rolke [aut, cre] (<https://orcid.org/0000-0002-3514-726X>)
 Maintainer: Wolfgang Rolke <wolfgang.rolke@upr.edu>
