@@ -410,17 +410,17 @@ test:</p>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt;         KS          K        CvM         AD        NN1        NN5         AZ </span></span>
 <span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;   0.108300   0.176600   0.075930   0.562000   1.108300   2.036700   0.006952 </span></span>
 <span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;         BF         BG         CL         FR        NN0        CF1        CF2 </span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;   0.250400   0.763600 -99.000000 -99.000000   3.000000   4.000000   5.000000 </span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;   0.250400   0.763600 -99.000000 -99.000000   0.227200  -1.102000   1.441500 </span></span>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt;        CF3        CF4       Ball         ES         EP </span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt;   6.000000   7.000000   8.000000  15.452000  32.531000 </span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt;   1.127300   1.285200   0.006210  15.452000  32.531000 </span></span>
 <span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; $p.values</span></span>
 <span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt;       KS        K      CvM       AD      NN1      NN5       AZ       BF </span></span>
 <span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt;   0.7650   0.7600   0.7500   0.8700   0.1200   0.3450   0.4500   0.5500 </span></span>
 <span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt;       BG       CL       FR      NN0      CF1      CF2      CF3      CF4 </span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt;   0.3450 -99.0000 -99.0000   3.0000   4.0000   5.0000   6.0000   7.0000 </span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt;   0.3450 -99.0000 -99.0000   0.1555   0.1353   0.4864   0.1298   0.3027 </span></span>
 <span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt;     Ball       ES       EP </span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt;   8.0000   0.3479   0.1144</span></span></code></pre></div>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt;   0.3761   0.3479   0.1144</span></span></code></pre></div>
 <p><strong>Note</strong> that all examples are run without parallel
 processing and a small number of simulation runs to satisfy CRAN
 submission rules</p>
@@ -503,12 +503,12 @@ adjusted for simultaneous testing:</p>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>                               <span class="at">maxProcessor =</span> <span class="dv">1</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt; Data is assumed to be continuous</span></span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt; p values of individual tests:</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; ES :  8</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt; ES :  0.3761</span></span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt; CvM :  0.77</span></span>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt; AZ :  0.435</span></span>
 <span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt; NN5 :  0.38</span></span>
 <span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt; BG :  0.385</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; adjusted p value of combined tests: 0.9281</span></span></code></pre></div>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt; adjusted p value of combined tests: 0.9196</span></span></code></pre></div>
 </div>
 <div id="power-estimation" class="section level3">
 <h3>Power Estimation</h3>
@@ -531,12 +531,12 @@ generates these data sets:</p>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>}   </span></code></pre></div>
 <p>Now we can run</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">twosample_power</span>(f, <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>), <span class="at">B=</span>B, <span class="at">maxProcessor=</span><span class="dv">1</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt;        KS    K   CvM    AD   NN1  NN5    AZ    BF   BG CL FR NN0 CF1 CF2 CF3</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; 0   0.080 0.11 0.050 0.035 0.055 0.04 0.045 0.055 0.04 NA NA   0   0   0   0</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; 0.5 0.135 0.21 0.255 0.280 0.255 0.29 0.240 0.245 0.04 NA NA   0   0   0   0</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt;     CF4 Ball    ES    EP</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; 0     0    0 0.045 0.040</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; 0.5   0    0 0.435 0.455</span></span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt;        KS    K   CvM    AD   NN1  NN5    AZ    BF   BG CL FR   NN0  CF1  CF2</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; 0   0.080 0.11 0.050 0.035 0.055 0.04 0.045 0.055 0.04 NA NA 0.045 0.05 0.05</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; 0.5 0.135 0.21 0.255 0.280 0.255 0.29 0.240 0.245 0.04 NA NA 0.215 0.26 0.11</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt;      CF3   CF4  Ball    ES    EP</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; 0   0.04 0.055 0.055 0.045 0.040</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; 0.5 0.24 0.185 0.115 0.435 0.455</span></span></code></pre></div>
 <p><strong>Arguments of twosample_power</strong></p>
 <ul>
 <li><em>f</em> a function that generates data</li>

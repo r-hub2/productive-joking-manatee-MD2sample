@@ -24,7 +24,7 @@ TS_cont_pval = function(x, y) {
    if(!is.list(tmp)) tmp=list(statistic=-99, p.value=-99)
    out[[1]][2]=tmp[[1]]
    out[[2]][2]=tmp[[2]] 
-   return(out)
+
 #  Nearest Neighbor variant   
    NN = c(FNN::get.knn(rbind(x,y), 1)$nn.index)
    out[[1]][3]=sum(NN[1:nx]<=nx)/n
