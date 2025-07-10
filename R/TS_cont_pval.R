@@ -9,10 +9,17 @@ TS_cont_pval = function(x, y) {
    ny=nrow(y)
    n=nx+ny
    # test by 
-   out=try(suppressMessages(Ecume::classifier_test(x, y)), TRUE)
-   if(!is.list(out)) out=list(statistic=-99, p.value=-99)
+   out=list(1:8, 1:8)
+   names(out)=c("statistics", "p.values")
+   names(out[[1]])=c("CL", "FR", "NN0", paste0("CF",1:4), "Ball")
+   names(out[[2]])=c("CL", "FR", "NN0", paste0("CF",1:4), "Ball")   
+   tmp=try(suppressMessages(Ecume::classifier_test(x, y)), TRUE)
+   if(!is.list(tmp)) tmp=list(statistic=-99, p.value=-99)
+   out[[1]][1]=tmp[[1]]
+   out[[2]][1]=tmp[[2]]
+   return(out)
    # test by Friedman and Rafski
-   tmp=try(FR.test(x,y),TRUE)
+   #tmp=try(FR.test(x,y),TRUE)
    if(!is.list(tmp)) tmp=list(statistic=-99, p.value=-99)
    out[[1]][2]=tmp[[1]]
    out[[2]][2]=tmp[[2]]   
@@ -30,8 +37,6 @@ TS_cont_pval = function(x, y) {
    out[[1]][8]=tmp[["statistic"]]
    out[[2]][8]=tmp[["p.value"]]
 #  return p values   
-   names(out[[1]])=c("CL", "FR", "NN0", paste0("CF",1:4), "Ball")
-   names(out[[2]])=c("CL", "FR", "NN0", paste0("CF",1:4), "Ball")   
-   names(out)=c("statistics", "p.values")
+
    out
 }

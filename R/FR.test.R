@@ -21,16 +21,6 @@
 #' \item{runs.samp2}{Number of subtrees of Sample 2.}
 #' \item{stat}{The standardized FR statistic.}
 #' \item{p.value}{P-value of the FR test.}
-#'
-#' @examples
-#' \dontrun{
-#' samp1 <- matrix(rnorm(100),nrow=5)
-#' samp2 <- matrix(rnorm(100),nrow=5)
-#' FRtest(samp1, samp2)
-#' FRtest(samp1, samp2, use.cosine=TRUE)
-#' FRtest(samp1, samp2, plot.MST=TRUE, main="Minimum spanning tree plot")
-#' FRtest(samp1, samp2, binary=TRUE, binary.cutoff=1)
-#' }
 #' @export
 
 FR.test <- function(samp1, samp2,

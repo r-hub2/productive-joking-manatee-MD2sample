@@ -51,13 +51,3 @@ Test statistics and p-values.
 FR test is a multivariate generalization of nonparametric two-sample test. This function is an implementation
 with customized options, including a visualization of the minimum spanning tree (MST).
 }
-\examples{
-\dontrun{
-samp1 <- matrix(rnorm(100),nrow=5)
-samp2 <- matrix(rnorm(100),nrow=5)
-FRtest(samp1, samp2)
-FRtest(samp1, samp2, use.cosine=TRUE)
-FRtest(samp1, samp2, plot.MST=TRUE, main="Minimum spanning tree plot")
-FRtest(samp1, samp2, binary=TRUE, binary.cutoff=1)
-}
-}
