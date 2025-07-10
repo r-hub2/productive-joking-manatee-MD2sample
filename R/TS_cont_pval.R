@@ -13,16 +13,18 @@ TS_cont_pval = function(x, y) {
    names(out)=c("statistics", "p.values")
    names(out[[1]])=c("CL", "FR", "NN0", paste0("CF",1:4), "Ball")
    names(out[[2]])=c("CL", "FR", "NN0", paste0("CF",1:4), "Ball")   
-   tmp=try(suppressMessages(Ecume::classifier_test(x, y)), TRUE)
+#   tmp=try(suppressMessages(Ecume::classifier_test(x, y)), TRUE)
+   tmp=list(statistic=-99, p.value=-99)
    if(!is.list(tmp)) tmp=list(statistic=-99, p.value=-99)
    out[[1]][1]=tmp[[1]]
    out[[2]][1]=tmp[[2]]
-   return(out)
+
    # test by Friedman and Rafski
    #tmp=try(FR.test(x,y),TRUE)
    if(!is.list(tmp)) tmp=list(statistic=-99, p.value=-99)
    out[[1]][2]=tmp[[1]]
-   out[[2]][2]=tmp[[2]]   
+   out[[2]][2]=tmp[[2]] 
+   return(out)
 #  Nearest Neighbor variant   
    NN = c(FNN::get.knn(rbind(x,y), 1)$nn.index)
    out[[1]][3]=sum(NN[1:nx]<=nx)/n
