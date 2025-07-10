@@ -2,7 +2,7 @@
 % Please edit documentation in R/case.studies.R
 \name{case.studies}
 \alias{case.studies}
-\title{Generate Case Studies}
+\title{Create case studies}
 \usage{
 case.studies(
   which,
@@ -17,22 +17,21 @@ case.studies(
 \arguments{
 \item{which}{name of the case study.}
 
-\item{n}{=500, sample size.}
+\item{n}{=200, sample size for both data sets}
 
-\item{nx}{=n, sample size of x data set.}
+\item{nx}{=n, sample size for first data sets}
 
-\item{ny}{=n, sample size of y data set.}
+\item{ny}{=n, sample size for second data sets}
 
-\item{nbins}{=-1,number of bins if discrete data is wanted.}
+\item{nbins}{=-1, number of bins for chi-square test, 2D only}
 
-\item{Ranges}{=matrix(c(-Inf, Inf, -Inf, Inf),2,2) a 2x2 matrix with lower and upper bounds}
+\item{Ranges}{= matrix(c(-Inf, Inf, -Inf, Inf), 2, 2), ranges of variables}
 
-\item{ReturnCaseNames}{=FALSE should only list of names be returned?}
+\item{ReturnCaseNames}{=FALSE, should list of case studies be returned?}
 }
 \value{
-a list of functions
+a list of functions and vectors
 }
 \description{
 This function creates the functions needed to run the various case studies.
 }
-\keyword{internal}

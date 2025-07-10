@@ -7,7 +7,7 @@
 change.marginals(dta, which, theta)
 }
 \arguments{
-\item{dta}{a list with two 2D data sets}
+\item{dta}{a list with two data sets}
 
 \item{which}{method for modifying the data sets.}
 
