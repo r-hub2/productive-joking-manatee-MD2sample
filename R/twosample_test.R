@@ -117,8 +117,8 @@ twosample_test=function(x, y, vals_x=NA, vals_y=NA, TS, TSextra, B=5000,
             if(missing(rnull))
                outchi = chisq2D_test_cont(x,y, Ranges, nbins, minexpcount)
           }  
-          if(missing(rnull))
-             outpvals=TS_cont_pval(x, y) #Methods that find p values
+          if(missing(rnull)) aaaa=0
+             #outpvals=TS_cont_pval(x, y) #Methods that find p values
           typeTS = 1
           TS=TS_cont
           dta=list(x=x, y=y)
