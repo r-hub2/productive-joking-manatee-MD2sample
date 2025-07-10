@@ -70,19 +70,4 @@ This function runs a number of two sample tests using Rcpp and parallel computin
 x = mvtnorm::rmvnorm(100, c(0,0))
 y = mvtnorm::rmvnorm(120, c(0,0))
 twosample_test(x, y, B=100, maxProcessor=1)
-#Using a new test, this one is an (included) chi square test. 
-#Also enter data as a list:
-TSextra=list(which="statistics", nbins=rbind(c(3,3), c(4,4)))
-dta=list(x=x, y=y)
-twosample_test(dta, TS=chiTS.cont, TSextra=TSextra, B=100, maxProcessor=1)
-#Two discrete data sets from some distribution:
-x = table(sample(1:4, size=1000, replace = TRUE))
-y = table(sample(1:4, size=1000, replace = TRUE, prob=c(1,2,1,1)))
-vals_x=rep(1:2,2)
-vals_y=rep(1:2, each=2)
-twosample_test(x, y, vals_x, vals_y, B=100, maxProcessor=1)
-#Run a discrete chi square test and enter the data as a matrix:
-TSextra=list(which="statistics")
-dta=cbind(x=x, y=y, vals_x=vals_x, vals_y=vals_y)
-twosample_test(dta, TS=chiTS.disc, TSextra=TSextra, B=100, maxProcessor=1)
 }
