@@ -407,20 +407,18 @@ test:</p>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">twosample_test</span>(x1, y1, <span class="at">B=</span>B, <span class="at">maxProcessor =</span> <span class="dv">1</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; Data is assumed to be continuous</span></span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; $statistics</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt;         KS          K        CvM         AD        NN1        NN5         AZ </span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;   0.108300   0.176600   0.075930   0.562000   1.108300   2.036700   0.006952 </span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;         BF         BG         CL         FR        NN0        CF1        CF2 </span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;   0.250400   0.763600 -99.000000 -99.000000   0.227200  -1.102000   1.441500 </span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt;        CF3        CF4       Ball         ES         EP </span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt;   1.127300   1.285200   0.006210  15.452000  32.531000 </span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt;        KS         K       CvM        AD       NN1       NN5        AZ        BF </span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt;  0.108300  0.176600  0.075930  0.562000  1.108300  2.036700  0.006952  0.250400 </span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt;        BG        FR       NN0       CF1       CF2       CF3       CF4      Ball </span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt;  0.763600 -1.102000  0.227200 -1.102000  1.441500  1.127300  1.285200  0.006210 </span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt;        ES        EP </span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; 15.452000 32.531000 </span></span>
 <span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; $p.values</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt;       KS        K      CvM       AD      NN1      NN5       AZ       BF </span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt;   0.7650   0.7600   0.7500   0.8700   0.1200   0.3450   0.4500   0.5500 </span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt;       BG       CL       FR      NN0      CF1      CF2      CF3      CF4 </span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt;   0.3450 -99.0000 -99.0000   0.1555   0.1353   0.4864   0.1298   0.3027 </span></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt;     Ball       ES       EP </span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt;   0.3761   0.3479   0.1144</span></span></code></pre></div>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt;     KS      K    CvM     AD    NN1    NN5     AZ     BF     BG     FR    NN0 </span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; 0.7650 0.7600 0.7500 0.8700 0.1200 0.3450 0.4500 0.5500 0.3450 0.1353 0.0000 </span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt;    CF1    CF2    CF3    CF4   Ball     ES     EP </span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; 0.1353 0.4864 0.1298 0.3027 0.3761 0.3479 0.1144</span></span></code></pre></div>
 <p><strong>Note</strong> that all examples are run without parallel
 processing and a small number of simulation runs to satisfy CRAN
 submission rules</p>
@@ -531,12 +529,12 @@ generates these data sets:</p>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>}   </span></code></pre></div>
 <p>Now we can run</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">twosample_power</span>(f, <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.5</span>), <span class="at">B=</span>B, <span class="at">maxProcessor=</span><span class="dv">1</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt;        KS    K   CvM    AD   NN1  NN5    AZ    BF   BG CL FR   NN0  CF1  CF2</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; 0   0.080 0.11 0.050 0.035 0.055 0.04 0.045 0.055 0.04 NA NA 0.045 0.05 0.05</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; 0.5 0.135 0.21 0.255 0.280 0.255 0.29 0.240 0.245 0.04 NA NA 0.215 0.26 0.11</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt;      CF3   CF4  Ball    ES    EP</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; 0   0.04 0.055 0.055 0.045 0.040</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; 0.5 0.24 0.185 0.115 0.435 0.455</span></span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&gt;        KS    K   CvM    AD   NN1  NN5    AZ    BF   BG   FR NN0  CF1  CF2  CF3</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co">#&gt; 0   0.080 0.11 0.050 0.035 0.055 0.04 0.045 0.055 0.04 0.05   1 0.05 0.05 0.04</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">#&gt; 0.5 0.135 0.21 0.255 0.280 0.255 0.29 0.240 0.245 0.04 0.26   1 0.26 0.11 0.24</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">#&gt;       CF4  Ball    ES    EP</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">#&gt; 0   0.055 0.055 0.045 0.040</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">#&gt; 0.5 0.185 0.115 0.435 0.455</span></span></code></pre></div>
 <p><strong>Arguments of twosample_power</strong></p>
 <ul>
 <li><em>f</em> a function that generates data</li>
@@ -792,23 +790,21 @@ with the p values.</p>
 <span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a><span class="co">#&gt; Average number of times a test is close to best:</span></span>
 <span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a><span class="co">#&gt;             BG           Ball            CF2            NN0             KS </span></span>
 <span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a><span class="co">#&gt;            1.0            2.0            3.0            4.0            6.0 </span></span>
-<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="co">#&gt;              K            NN1            CF4             CL             FR </span></span>
-<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="co">#&gt;            6.0            6.0            8.0            9.0           11.5 </span></span>
-<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a><span class="co">#&gt;            CF1            CF3            CvM            NN5             AD </span></span>
-<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a><span class="co">#&gt;           11.5           11.5           12.0           14.0           14.5 </span></span>
-<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a><span class="co">#&gt;             BF             AZ             ES             EP Chisq Pval 3,4 </span></span>
-<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a><span class="co">#&gt;           16.0           17.0           18.0           19.0           20.5 </span></span>
-<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a><span class="co">#&gt; Chisq Pval 3,4 </span></span>
-<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a><span class="co">#&gt;           20.5</span></span>
-<span id="cb20-21"><a href="#cb20-21" tabindex="-1"></a><span class="co">#&gt;          Chisq Pval 3,4 Chisq Pval 3,4    KS     K   CvM    AD   NN1   NN5</span></span>
-<span id="cb20-22"><a href="#cb20-22" tabindex="-1"></a><span class="co">#&gt; NormalD2          0.982          0.982 0.418 0.430 0.552 0.642 0.484 0.664</span></span>
-<span id="cb20-23"><a href="#cb20-23" tabindex="-1"></a><span class="co">#&gt; tD2               0.978          0.978 0.396 0.393 0.539 0.635 0.357 0.502</span></span>
-<span id="cb20-24"><a href="#cb20-24" tabindex="-1"></a><span class="co">#&gt;             AZ    BF    BG    CL    FR   NN0   CF1   CF2   CF3   CF4  Ball</span></span>
-<span id="cb20-25"><a href="#cb20-25" tabindex="-1"></a><span class="co">#&gt; NormalD2 0.884 0.831 0.050 0.534 0.601 0.395 0.601 0.377 0.601 0.502 0.302</span></span>
-<span id="cb20-26"><a href="#cb20-26" tabindex="-1"></a><span class="co">#&gt; tD2      0.817 0.781 0.067 0.472 0.491 0.312 0.491 0.307 0.491 0.401 0.200</span></span>
-<span id="cb20-27"><a href="#cb20-27" tabindex="-1"></a><span class="co">#&gt;             ES    EP</span></span>
-<span id="cb20-28"><a href="#cb20-28" tabindex="-1"></a><span class="co">#&gt; NormalD2 0.973 0.978</span></span>
-<span id="cb20-29"><a href="#cb20-29" tabindex="-1"></a><span class="co">#&gt; tD2      0.863 0.933</span></span></code></pre></div>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="co">#&gt;              K            NN1            CF4             FR            CF1 </span></span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="co">#&gt;            6.0            6.0            8.0           10.5           10.5 </span></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a><span class="co">#&gt;            CF3            CvM            NN5             AD             BF </span></span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a><span class="co">#&gt;           10.5           11.0           13.0           13.5           15.0 </span></span>
+<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a><span class="co">#&gt;             AZ             ES             EP Chisq Pval 3,4 Chisq Pval 3,4 </span></span>
+<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a><span class="co">#&gt;           16.0           17.0           18.0           19.5           19.5</span></span>
+<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a><span class="co">#&gt;          Chisq Pval 3,4 Chisq Pval 3,4    KS     K   CvM    AD   NN1   NN5</span></span>
+<span id="cb20-20"><a href="#cb20-20" tabindex="-1"></a><span class="co">#&gt; NormalD2          0.982          0.982 0.418 0.430 0.552 0.642 0.484 0.664</span></span>
+<span id="cb20-21"><a href="#cb20-21" tabindex="-1"></a><span class="co">#&gt; tD2               0.978          0.978 0.396 0.393 0.539 0.635 0.357 0.502</span></span>
+<span id="cb20-22"><a href="#cb20-22" tabindex="-1"></a><span class="co">#&gt;             AZ    BF    BG    FR   NN0   CF1   CF2   CF3   CF4  Ball    ES</span></span>
+<span id="cb20-23"><a href="#cb20-23" tabindex="-1"></a><span class="co">#&gt; NormalD2 0.884 0.831 0.050 0.601 0.395 0.601 0.377 0.601 0.502 0.302 0.973</span></span>
+<span id="cb20-24"><a href="#cb20-24" tabindex="-1"></a><span class="co">#&gt; tD2      0.817 0.781 0.067 0.491 0.312 0.491 0.307 0.491 0.401 0.200 0.863</span></span>
+<span id="cb20-25"><a href="#cb20-25" tabindex="-1"></a><span class="co">#&gt;             EP</span></span>
+<span id="cb20-26"><a href="#cb20-26" tabindex="-1"></a><span class="co">#&gt; NormalD2 0.978</span></span>
+<span id="cb20-27"><a href="#cb20-27" tabindex="-1"></a><span class="co">#&gt; tD2      0.933</span></span></code></pre></div>
 </div>
 <div id="goodness-of-fit-twosample-hybrid-problem." class="section level2">
 <h2>Goodness-of-fit / twosample hybrid problem.</h2>
@@ -956,21 +952,6 @@ in <span class="citation">(Biswas and Ghosh 2014)</span>.</p>
 </div>
 <div id="methods-whose-p-values-are-found-using-a-large-sample-theory" class="section level3">
 <h3>Methods whose p values are found using a large sample theory</h3>
-<p><strong>Ecume::classifier_test</strong></p>
-<p>The <strong>R</strong> package <em>Ecume</em> <span class="citation">(Roux de Bezieux 2025)</span> includes the
-<em>classifier.test</em> described as follows: if we split the data into
-a training and test set and train a classifier Cl on the training set to
-distinguish between points from P1 and P2, then under the null, the
-classifier will not do better than chance on the test set. So if we have
-ntest samples in the test set, then the number of correctly classified
-points cCl,ntest, follows</p>
-<p><span class="math display">\[cCl,ntest\sim H_0
-Binom(.5,ntest)\]</span></p>
-<p>This provides a valid test statistic and its distribution under the
-null. The quality of the classifier only matters for the power of the
-test. To provide flexibility for the users, we rely on the caret package
-(Kuhn 2020). By default, we use a k-NN classifier where k is selected
-through cross-validation on the training set.</p>
 <p><strong>Friedman-Rafski test</strong></p>
 <p>This test is a multi-dimensional extension of the classic
 Wald-Wolfowitz test bases on minimum spanning trees. It was discussed in
@@ -1053,10 +1034,6 @@ van Wetenschappen</em> 63: 38–47.
 Pan, W., Y. Tian, X. Wang, and H. Zhang. 2018. <span>“Ball Divergence:
 Nonparametric Two Sample Test.”</span> <em>The Annals of Statistics</em>
 46 (3). <a href="https://doi.org/10.1214/17-aos1579">https://doi.org/10.1214/17-aos1579</a>.
-</div>
-<div id="ref-ecume2025" class="csl-entry">
-Roux de Bezieux, Hector. 2025. <em>Ecume: Equality of 2 (or k)
-Continuous Univariate and Multivariate Distributions</em>. <a href="https://github.com/hectorrdb/ecume">https://github.com/hectorrdb/ecume</a>.
 </div>
 <div id="ref-Smirnov1939" class="csl-entry">
 Smirnov, N. V. 1939. <span>“Estimate of Deviation Between Empirical

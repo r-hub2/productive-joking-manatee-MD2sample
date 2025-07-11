@@ -463,13 +463,6 @@ $$
 
 ### Methods whose p values are found using a large sample theory
 
-**Ecume::classifier_test** 
-
-The **R** package *Ecume* [@ecume2025] includes the *classifier.test* described as follows: if we split the data into a training and test set and train a classifier Cl on the training set to distinguish between points from P1 and P2, then under the null, the classifier will not do better than chance on the test set. So if we have ntest samples in the test set, then the number of correctly classified points cCl,ntest, follows
-
-$$cCl,ntest\sim H_0 Binom(.5,ntest)$$
-
-This provides a valid test statistic and its distribution under the null. The quality of the classifier only matters for the power of the test. To provide flexibility for the users, we rely on the caret package (Kuhn 2020). By default, we use a k-NN classifier where k is selected through cross-validation on the training set.
 
 **Friedman-Rafski test**
 

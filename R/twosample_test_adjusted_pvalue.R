@@ -102,7 +102,7 @@ twosample_test_adjusted_pvalue=function(x, y, vals_x=NA, vals_y=NA,
     default.methods = list(cont=c("ES", "CvM", "AZ", "NN5", "BG"), 
                            disc=c("Chisquare", "KS", "AZ", "CvM"))
     all.methods = list(cont=c("KS", "K", "CvM","AD","NN1", "NN5", "AZ","BF",
-                              "BG", "CL", "FR", "NN0", "CF1", "CF2", "CF3", "CF4",
+                              "BG", "FR", "NN0", "CF1", "CF2", "CF3", "CF4",
                               "ES", "EP"),
                        disc=c("KS", "K", "CvM","AD","NN","AZ","BF","Chisquare"))                                          
     if(length(B)==1) B=c(B, B)

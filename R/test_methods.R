@@ -9,7 +9,7 @@ test_methods=function(doMethods, Continuous, ReturnMethodNames=FALSE) {
     if(doMethods[1]=="all") return(FALSE)
     if(Continuous) methods=
                  c("KS","K","CvM","AD","NN1", "NN5", "AZ","BF","BG",
-                   "CL","FR","NN0","CF1","CF2","CF3","CF4",
+                   "FR","NN0","CF1","CF2","CF3","CF4",
                    "Ball",  "ES", "EP")
     else methods=c("KS","K","CvM","AD","NN","AZ", "BF","ChiSquare")
     if(ReturnMethodNames) return(methods)
@@ -32,7 +32,6 @@ test_methods=function(doMethods, Continuous, ReturnMethodNames=FALSE) {
          message("Aslan-Zech           AZ")
          message("Baringhaus-Franz     BF")
          message("Biswas-Ghosh         BG")
-         message("Ecume classifier     CL")
          message("Friedman-Rafski      FR")
          message("x nearest neighbor   NN0")
          message("Chen-Friedman        CF1-CF4")
