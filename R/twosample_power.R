@@ -2,24 +2,29 @@
 #' 
 #' Estimate the power of various two sample tests using Rcpp and parallel computing.
 #' 
-#' @param  f  function to generate a list with data sets x, y and (optional) vals, weights
-#' @param  ... additional arguments passed to f, up to 2
-#' @param  TS routine to calculate test statistics for non-chi-square tests
-#' @param  TSextra additional info passed to TS, if necessary
-#' @param  alpha =0.05, the level of the hypothesis test 
-#' @param  B =1000, number of simulation runs
-#' @param  nbins =c(5, 5), number of bins for chi square test if Dim=2
-#' @param  minexpcount =5, lowest required count for chi-square test
-#' @param  Ranges =matrix(c(-Inf, Inf, -Inf, Inf),2,2) a 2x2 matrix with lower and upper bounds
-#' @param  samplingmethod ="Binomial" for Binomial sampling or "independence" for independence sampling
-#' @param  rnull function to generate new data sets for simulation
-#' @param  With.p.value =FALSE does user supplied routine return p values?
-#' @param  DoTransform should data be transformed to interval (0,1)?
-#' @param  SuppressMessages =FALSE, should messages be printed
+#' For details consult vignette("MD2sample","MD2sample")
+#' 
+#' @param  f  function to generate a list with data sets x and y for continuous data or
+#'         a matrix with columns vals_x, vals_y, x and y for discrete data.
+#' @param  ... additional arguments passed to f, up to 2.
+#' @param  TS routine to calculate test statistics for new tests.
+#' @param  TSextra additional info passed to TS, if necessary.
+#' @param  alpha =0.05, the type I error probability of the hypothesis test. 
+#' @param  B =1000, number of simulation runs.
+#' @param  nbins =c(5, 5), number of bins for chi square test if Dim=2.
+#' @param  minexpcount =5, lowest required count for chi-square test.
+#' @param  Ranges =matrix(c(-Inf, Inf, -Inf, Inf),2,2), a 2x2 matrix with lower and upper bounds.
+#' @param  samplingmethod ="Binomial" for Binomial sampling or "independence" for independence 
+#'         sampling in the discrete data case.
+#' @param  rnull function to generate new data sets for parametric bootstrap.
+#' @param  With.p.value =FALSE, does user supplied routine return p values?
+#' @param  DoTransform =TRUE, should data be transformed to  to unit hypercube? 
+#' @param  SuppressMessages =FALSE, should messages be printed?
 #' @param  LargeSampleOnly =FALSE, should only methods with large sample theories be run?
-#' @param  maxProcessor number of cores to use
-#' @param  doMethods ="all" which methods should be included?
-#' @return A numeric vector of power values.
+#' @param  maxProcessor number of cores to use. If missing the number of physical cores-1 
+#'             is used. If set to 1 no parallel processing is done.
+#' @param  doMethods ="all", which methods should be included?
+#' @return A numeric matrix or vector of power values.
 #' @examples
 #' #Note that the resulting power estimates are meaningless because
 #' #of the extremely low number of simulation runs B, required because of CRAN timing rule
@@ -35,7 +40,7 @@
 #'  y=mvtnorm::rmvnorm(120, sigma = S)
 #'  list(x=x, y=y)
 #' }
-#' #' twosample_power(f, c(0,0.5), B=10, maxProcessor=1)
+#' twosample_power(f, c(0, 0.5), B=10, maxProcessor=1)
 #' #Power of use supplied test. Example is a (included) chi-square test:
 #' TSextra=list(which="statistics", nbins=rbind(c(3,3), c(4,4)))
 #' twosample_power(f, c(0, 0.5), TS=chiTS.cont, TSextra=TSextra, B=10, maxProcessor=1)
@@ -54,7 +59,7 @@
 twosample_power=function(f, ..., TS, TSextra, alpha=0.05, B=1000, 
             nbins=c(5,5), minexpcount =5, Ranges=matrix(c(-Inf, Inf, -Inf, Inf),2,2),
             samplingmethod="Binomial", rnull, With.p.value=FALSE,
-            DoTransform, SuppressMessages=FALSE, 
+            DoTransform=TRUE, SuppressMessages=FALSE, 
             LargeSampleOnly=FALSE, maxProcessor, doMethods ="all") {
     if(!is.numeric(samplingmethod))  
       samplingmethod=ifelse(samplingmethod=="independence", 1, 2)
@@ -108,15 +113,11 @@ twosample_power=function(f, ..., TS, TSextra, alpha=0.05, B=1000,
       return(NULL)
     }
   }  
-  if(missing(DoTransform) & Continuous) {
-    z=c(x, y)
-    DoTransform=FALSE
-    if(min(z)<0 | max(z)>1) DoTransform=TRUE
-    if(DoTransform) {
-      dta=transform01(dta)
-      x=dta$x
-      y=dta$y
-    }  
+  if(DoTransform) {
+    dta=transform01(dta)
+    x=dta$x
+    y=dta$y
+    Ranges=matrix(c(0, 1, 0, 1),2,2)
   }
   if(missing(TSextra)) TSextra=list(aaa=0)
   if(Continuous)
@@ -201,7 +202,7 @@ twosample_power=function(f, ..., TS, TSextra, alpha=0.05, B=1000,
     if(length(list(...))==0) rownames(pwr)=NULL
     if(length(list(...))==1) rownames(pwr)=avals
     if(length(list(...))==2) rownames(pwr)=paste0(avals,"|",bvals)  
-    if(doMethods!="all") pwr=pwr[, doMethods, drop=FALSE]
+    if(doMethods[1]!="all") pwr=pwr[, doMethods, drop=FALSE]
     return(round(pwr, 4))
   }
 
@@ -266,6 +267,6 @@ twosample_power=function(f, ..., TS, TSextra, alpha=0.05, B=1000,
   if(length(list(...))==0) rownames(pwr)=NULL
   if(length(list(...))==1) rownames(pwr)=avals
   if(length(list(...))==2) rownames(pwr)=paste0(avals,"|",bvals)
-  if(doMethods!="all") pwr=pwr[, doMethods, drop=FALSE]
+  if(doMethods[1]!="all") pwr=pwr[, doMethods, drop=FALSE]
   round(pwr, 4)
 }

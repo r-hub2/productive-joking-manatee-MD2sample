@@ -17,7 +17,7 @@ twosample_power(
   samplingmethod = "Binomial",
   rnull,
   With.p.value = FALSE,
-  DoTransform,
+  DoTransform = TRUE,
   SuppressMessages = FALSE,
   LargeSampleOnly = FALSE,
   maxProcessor,
@@ -25,45 +25,51 @@ twosample_power(
 )
 }
 \arguments{
-\item{f}{function to generate a list with data sets x, y and (optional) vals, weights}
+\item{f}{function to generate a list with data sets x and y for continuous data or
+a matrix with columns vals_x, vals_y, x and y for discrete data.}
 
-\item{...}{additional arguments passed to f, up to 2}
+\item{...}{additional arguments passed to f, up to 2.}
 
-\item{TS}{routine to calculate test statistics for non-chi-square tests}
+\item{TS}{routine to calculate test statistics for new tests.}
 
-\item{TSextra}{additional info passed to TS, if necessary}
+\item{TSextra}{additional info passed to TS, if necessary.}
 
-\item{alpha}{=0.05, the level of the hypothesis test}
+\item{alpha}{=0.05, the type I error probability of the hypothesis test.}
 
-\item{B}{=1000, number of simulation runs}
+\item{B}{=1000, number of simulation runs.}
 
-\item{nbins}{=c(5, 5), number of bins for chi square test if Dim=2}
+\item{nbins}{=c(5, 5), number of bins for chi square test if Dim=2.}
 
-\item{minexpcount}{=5, lowest required count for chi-square test}
+\item{minexpcount}{=5, lowest required count for chi-square test.}
 
-\item{Ranges}{=matrix(c(-Inf, Inf, -Inf, Inf),2,2) a 2x2 matrix with lower and upper bounds}
+\item{Ranges}{=matrix(c(-Inf, Inf, -Inf, Inf),2,2), a 2x2 matrix with lower and upper bounds.}
 
-\item{samplingmethod}{="Binomial" for Binomial sampling or "independence" for independence sampling}
+\item{samplingmethod}{="Binomial" for Binomial sampling or "independence" for independence
+sampling in the discrete data case.}
 
-\item{rnull}{function to generate new data sets for simulation}
+\item{rnull}{function to generate new data sets for parametric bootstrap.}
 
-\item{With.p.value}{=FALSE does user supplied routine return p values?}
+\item{With.p.value}{=FALSE, does user supplied routine return p values?}
 
-\item{DoTransform}{should data be transformed to interval (0,1)?}
+\item{DoTransform}{=TRUE, should data be transformed to  to unit hypercube?}
 
-\item{SuppressMessages}{=FALSE, should messages be printed}
+\item{SuppressMessages}{=FALSE, should messages be printed?}
 
 \item{LargeSampleOnly}{=FALSE, should only methods with large sample theories be run?}
 
-\item{maxProcessor}{number of cores to use}
+\item{maxProcessor}{number of cores to use. If missing the number of physical cores-1
+is used. If set to 1 no parallel processing is done.}
 
-\item{doMethods}{="all" which methods should be included?}
+\item{doMethods}{="all", which methods should be included?}
 }
 \value{
-A numeric vector of power values.
+A numeric matrix or vector of power values.
 }
 \description{
 Estimate the power of various two sample tests using Rcpp and parallel computing.
+}
+\details{
+For details consult vignette("MD2sample","MD2sample")
 }
 \examples{
 #Note that the resulting power estimates are meaningless because
@@ -80,7 +86,7 @@ f=function(a=0) {
  y=mvtnorm::rmvnorm(120, sigma = S)
  list(x=x, y=y)
 }
-#' twosample_power(f, c(0,0.5), B=10, maxProcessor=1)
+twosample_power(f, c(0, 0.5), B=10, maxProcessor=1)
 #Power of use supplied test. Example is a (included) chi-square test:
 TSextra=list(which="statistics", nbins=rbind(c(3,3), c(4,4)))
 twosample_power(f, c(0, 0.5), TS=chiTS.cont, TSextra=TSextra, B=10, maxProcessor=1)

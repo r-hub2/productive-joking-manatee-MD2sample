@@ -22,39 +22,45 @@ twosample_test_adjusted_pvalue(
 )
 }
 \arguments{
-\item{x}{a matrix of numbers if data is continuous or a vector of counts  if data is discrete, or a list of x and y}
+\item{x}{Continuous data: either a matrix of numbers, or a list with two matrices called x and y.
+if it is a matrix Observations are in different rows.
+Discrete data: a vector of counts or a matrix with columns named vals_x, vals_y, x and y.}
 
-\item{y}{a matrix of numbers if data is continuous or a vector of counts  if data is discrete.}
+\item{y}{a matrix of numbers if data if data is continuous or a vector of counts  if data is discrete.}
 
-\item{vals_x}{=NA, a vector of values for discrete random variable}
+\item{vals_x}{=NA, a vector of values for discrete random variable, or NA if data is continuous.}
 
-\item{vals_y}{=NA, a vector of values for discrete random variable}
+\item{vals_y}{=NA, a vector of values for discrete random variable, or NA if data is continuous.}
 
-\item{B}{=c(5000, 1000), number of simulation runs for permutation test}
+\item{B}{=c(5000, 1000), number of simulation runs for permutation test and for estimation
+of the empirical distribution function.}
 
 \item{nbins}{=c(5, 5), number of bins for chi square tests (2D only).}
 
-\item{minexpcount}{= 5, minimum required expected counts for chi-square tests}
+\item{minexpcount}{= 5, minimum required expected counts for chi-square tests.}
 
-\item{samplingmethod}{="Binomial" or "independence" for discrete data}
+\item{samplingmethod}{="Binomial" or "independence" for discrete data.}
 
-\item{Ranges}{=matrix(c(-Inf, Inf, -Inf, Inf),2,2) a 2x2 matrix with lower and upper bounds}
+\item{Ranges}{=matrix(c(-Inf, Inf, -Inf, Inf),2,2) a 2x2 matrix with lower and upper bounds.}
 
 \item{DoTransform}{=TRUE, should data be transformed to interval (0,1)?}
 
-\item{rnull}{routine for parametric bootstrap}
+\item{rnull}{routine for parametric bootstrap.}
 
-\item{SuppressMessages}{= FALSE print informative messages?}
+\item{SuppressMessages}{= FALSE, print informative messages?}
 
-\item{maxProcessor}{number of cores for parallel processing}
+\item{maxProcessor}{number of cores for parallel processing.}
 
-\item{doMethods}{Which methods should be included?}
+\item{doMethods}{Which methods should be included? If missing a small number of methods that generally have good power are used.}
 }
 \value{
-A list of two numeric vectors, the test statistics and the p values.
+NULL, results are printed out.
 }
 \description{
 This function runs a number of two sample tests using Rcpp and parallel computing and then finds the correct p value for the combined tests.
+}
+\details{
+For details consult the vignette("MD2sample","MD2sample")
 }
 \examples{
 #Note that the number of simulation runs B is very small to

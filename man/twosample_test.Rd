@@ -25,45 +25,51 @@ twosample_test(
 )
 }
 \arguments{
-\item{x}{a matrix of numbers if data is continuous or a vector of counts  if data is discrete, or a list of x and y}
+\item{x}{Continuous data: either a matrix of numbers, or a list with two matrices called x and y.
+if it is a matrix Observations are in different rows.
+Discrete data: a vector of counts or a matrix with columns named vals_x, vals_y, x and y.}
 
 \item{y}{a matrix of numbers if data is continuous or a vector of counts  if data is discrete.}
 
-\item{vals_x}{=NA, a vector of values for discrete random variable}
+\item{vals_x}{=NA, a vector of values for discrete random variables, or NA if data is continuous.}
 
-\item{vals_y}{=NA, a vector of values for discrete random variable}
+\item{vals_y}{=NA, a vector of values for discrete random variables, or NA if data is continuous.}
 
-\item{TS}{routine to calculate test statistics for non-chi-square tests}
+\item{TS}{user supplied routine to calculate test statistics for new tests.}
 
-\item{TSextra}{additional info passed to TS, if necessary}
+\item{TSextra}{(optional) additional info passed to TS, if necessary.}
 
-\item{B}{=5000, number of simulation runs for permutation test}
+\item{B}{=5000, number of simulation runs for permutation test.}
 
 \item{nbins}{=c(5,5), for chi square tests (2D only).}
 
-\item{minexpcount}{=5, lowest required count for chi-square test}
+\item{minexpcount}{=5, lowest required count for chi-square test (2D only).}
 
-\item{Ranges}{=matrix(c(-Inf, Inf, -Inf, Inf),2,2) a 2x2 matrix with lower and upper bounds}
+\item{Ranges}{=matrix(c(-Inf, Inf, -Inf, Inf),2,2), a 2x2 matrix with lower and upper bounds (2D only).}
 
-\item{DoTransform}{=TRUE, should data be transformed to interval (0,1)?}
+\item{DoTransform}{=TRUE, should data be transformed to unit hypercube?}
 
-\item{samplingmethod}{="Binomial" for Binomial sampling or "independence" for independence sampling}
+\item{samplingmethod}{="Binomial" for Binomial sampling or "independence" for independence sampling.}
 
-\item{rnull}{function to generate new data sets for simulation}
+\item{rnull}{function to generate new data sets for simulation as an alternative to the permutation method.}
 
-\item{SuppressMessages}{=FALSE, should messages be printed}
+\item{SuppressMessages}{=FALSE, should informative messages be printed?}
 
-\item{LargeSampleOnly}{=FALSE should only methods with large sample theories be run?}
+\item{LargeSampleOnly}{=FALSE, should only methods with large sample theories be run?}
 
-\item{maxProcessor}{maximum number of cores to use. If missing (the default) no parallel processing is used.}
+\item{maxProcessor}{number of cores to use. If missing the number of physical cores-1
+is used. If set to 1 no parallel processing is done.}
 
-\item{doMethods}{="all" Which methods should be included?}
+\item{doMethods}{="all", Which methods should be included?}
 }
 \value{
 A list of two numeric vectors, the test statistics and the p values.
 }
 \description{
 This function runs a number of two sample tests using Rcpp and parallel computing.
+}
+\details{
+For details consult vignette("MD2sample","MD2sample")
 }
 \examples{
 #Two continuous data sets from a multivariate normal:

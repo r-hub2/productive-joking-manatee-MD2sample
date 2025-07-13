@@ -2,23 +2,28 @@
 #' 
 #' This function runs a number of two sample tests using Rcpp and parallel computing.
 #' 
-#' @param  x  a matrix of numbers if data is continuous or a vector of counts  if data is discrete, or a list of x and y
-#' @param  y a matrix of numbers if data is continuous or a vector of counts  if data is discrete.
-#' @param  vals_x =NA, a vector of values for discrete random variable
-#' @param  vals_y =NA, a vector of values for discrete random variable
-#' @param  TS routine to calculate test statistics for non-chi-square tests
-#' @param  TSextra additional info passed to TS, if necessary
-#' @param  B =5000, number of simulation runs for permutation test
+#' For details consult vignette("MD2sample","MD2sample")
+#' 
+#' @param  x  Continuous data: either a matrix of numbers, or a list with two matrices called x and y.
+#'                             if it is a matrix Observations are in different rows.
+#'            Discrete data: a vector of counts or a matrix with columns named vals_x, vals_y, x and y.
+#' @param  y a matrix of numbers if data is continuous or a vector of counts  if data is discrete. 
+#' @param  vals_x =NA, a vector of values for discrete random variables, or NA if data is continuous.
+#' @param  vals_y =NA, a vector of values for discrete random variables, or NA if data is continuous.
+#' @param  TS user supplied routine to calculate test statistics for new tests.
+#' @param  TSextra (optional) additional info passed to TS, if necessary.
+#' @param  B =5000, number of simulation runs for permutation test.
 #' @param  nbins =c(5,5), for chi square tests (2D only).
-#' @param  minexpcount =5, lowest required count for chi-square test
-#' @param  Ranges =matrix(c(-Inf, Inf, -Inf, Inf),2,2) a 2x2 matrix with lower and upper bounds
-#' @param  DoTransform =TRUE, should data be transformed to interval (0,1)?
-#' @param  samplingmethod ="Binomial" for Binomial sampling or "independence" for independence sampling
-#' @param  rnull function to generate new data sets for simulation
-#' @param  SuppressMessages =FALSE, should messages be printed
-#' @param  LargeSampleOnly =FALSE should only methods with large sample theories be run?
-#' @param  maxProcessor  maximum number of cores to use. If missing (the default) no parallel processing is used.
-#' @param  doMethods ="all" Which methods should be included?
+#' @param  minexpcount =5, lowest required count for chi-square test (2D only).
+#' @param  Ranges =matrix(c(-Inf, Inf, -Inf, Inf),2,2), a 2x2 matrix with lower and upper bounds (2D only).
+#' @param  DoTransform =TRUE, should data be transformed to unit hypercube?
+#' @param  samplingmethod ="Binomial" for Binomial sampling or "independence" for independence sampling.
+#' @param  rnull function to generate new data sets for simulation as an alternative to the permutation method.
+#' @param  SuppressMessages =FALSE, should informative messages be printed?
+#' @param  LargeSampleOnly =FALSE, should only methods with large sample theories be run?
+#' @param  maxProcessor  number of cores to use. If missing the number of physical cores-1 
+#'             is used. If set to 1 no parallel processing is done.
+#' @param  doMethods ="all", Which methods should be included?
 #' @return A list of two numeric vectors, the test statistics and the p values. 
 #' @examples
 #' #Two continuous data sets from a multivariate normal:
@@ -91,11 +96,6 @@ twosample_test=function(x, y, vals_x=NA, vals_y=NA, TS, TSextra, B=5000,
         dta=list(x=x, y=y)
       }
       rawdta=dta
-      if(missing(DoTransform)) {
-        z=c(x, y)
-        DoTransform=FALSE
-        if(min(z)<0 | max(z)>1) DoTransform=TRUE
-      }  
       if(DoTransform) {
           dta=transform01(dta)
           x=dta$x

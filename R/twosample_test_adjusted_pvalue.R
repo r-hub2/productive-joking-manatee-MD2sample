@@ -66,21 +66,26 @@ simpvals=function(dta, TS, typeTS, TSextra, A, Continuous,
 #' 
 #' This function runs a number of two sample tests using Rcpp and parallel computing and then finds the correct p value for the combined tests.
 #' 
-#' @param  x  a matrix of numbers if data is continuous or a vector of counts  if data is discrete, or a list of x and y
-#' @param  y a matrix of numbers if data is continuous or a vector of counts  if data is discrete.
-#' @param  vals_x =NA, a vector of values for discrete random variable
-#' @param  vals_y =NA, a vector of values for discrete random variable
-#' @param  B =c(5000, 1000), number of simulation runs for permutation test
+#' For details consult the vignette("MD2sample","MD2sample")
+#' 
+#' @param  x  Continuous data: either a matrix of numbers, or a list with two matrices called x and y.
+#'                             if it is a matrix Observations are in different rows.
+#'            Discrete data: a vector of counts or a matrix with columns named vals_x, vals_y, x and y.
+#' @param  y a matrix of numbers if data if data is continuous or a vector of counts  if data is discrete.
+#' @param  vals_x =NA, a vector of values for discrete random variable, or NA if data is continuous.
+#' @param  vals_y =NA, a vector of values for discrete random variable, or NA if data is continuous.
+#' @param  B =c(5000, 1000), number of simulation runs for permutation test and for estimation
+#'         of the empirical distribution function.
 #' @param  nbins =c(5, 5), number of bins for chi square tests (2D only).
-#' @param  minexpcount = 5, minimum required expected counts for chi-square tests
-#' @param  samplingmethod ="Binomial" or "independence" for discrete data
-#' @param  Ranges =matrix(c(-Inf, Inf, -Inf, Inf),2,2) a 2x2 matrix with lower and upper bounds
+#' @param  minexpcount = 5, minimum required expected counts for chi-square tests.
+#' @param  samplingmethod ="Binomial" or "independence" for discrete data.
+#' @param  Ranges =matrix(c(-Inf, Inf, -Inf, Inf),2,2) a 2x2 matrix with lower and upper bounds.
 #' @param  DoTransform =TRUE, should data be transformed to interval (0,1)?
-#' @param  rnull routine for parametric bootstrap
-#' @param  SuppressMessages = FALSE print informative messages?
-#' @param  maxProcessor number of cores for parallel processing
-#' @param  doMethods  Which methods should be included? 
-#' @return A list of two numeric vectors, the test statistics and the p values.
+#' @param  rnull routine for parametric bootstrap.
+#' @param  SuppressMessages = FALSE, print informative messages?
+#' @param  maxProcessor number of cores for parallel processing.
+#' @param  doMethods  Which methods should be included? If missing a small number of methods that generally have good power are used.
+#' @return NULL, results are printed out.
 #' @examples
 #' #Note that the number of simulation runs B is very small to
 #' #satisfy CRAN's run time constraints. 
@@ -150,11 +155,6 @@ twosample_test_adjusted_pvalue=function(x, y, vals_x=NA, vals_y=NA,
         dta=list(x=x, y=y)
       }
       rawdta=dta
-      if(missing(DoTransform)) {
-        z=c(x, y)
-        DoTransform=FALSE
-        if(min(z)<0 | max(z)>1) DoTransform=TRUE
-      }  
       if(DoTransform) {
           dta=transform01(dta)
           x=dta$x

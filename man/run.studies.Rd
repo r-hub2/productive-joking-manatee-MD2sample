@@ -19,34 +19,38 @@ run.studies(
 )
 }
 \arguments{
-\item{Continuous}{=TRUE run cases for continuous data}
+\item{Continuous}{=TRUE, run cases for continuous data.}
 
-\item{study}{either the name of the study, or its number. If missing all the studies are run.}
+\item{study}{either the name of the study, or its number in the list. If missing all the studies are run.}
 
-\item{TS}{routine to calculate test statistics.}
+\item{TS}{routine to calculate new test statistics.}
 
-\item{TSextra}{list passed to TS.}
+\item{TSextra}{list passed to TS (optional).}
 
-\item{With.p.value}{=FALSE does user supplied routine return p values?}
+\item{With.p.value}{=FALSE, does user supplied routine return p values?}
 
-\item{nsample}{= 200, desired sample size.}
+\item{nsample}{= 200, desired sample size. 200 is used in included case studies.}
 
-\item{alpha}{=0.05  type I error}
+\item{alpha}{=0.05,  type I error probability of tests. 0.05 is used in included case studies.}
 
 \item{param_alt}{(list of) values of parameter under the alternative hypothesis.
 If missing included values are used.}
 
-\item{SuppressMessages}{=FALSE, should messages be printed}
+\item{SuppressMessages}{=FALSE, should informative messages be printed?}
 
-\item{B}{= 1000}
+\item{B}{= 1000, number of simulation runs.}
 
-\item{maxProcessor}{maximum number of cores to use. If missing (the default) no parallel processing is used.}
+\item{maxProcessor}{number of cores to use. If missing the number of physical cores-1
+is used. If set to 1 no parallel processing is done.}
 }
 \value{
-A (list of ) matrices of p.values
+A (list of ) matrices of p.values.
 }
 \description{
 This function runs the case studies included in the package.
+}
+\details{
+For details consult vignette(package="MD2sample")
 }
 \examples{
 #The new test is a (included) chi square test:

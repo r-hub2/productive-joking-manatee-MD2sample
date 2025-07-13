@@ -6,7 +6,7 @@ knitr::opts_chunk$set(
 
 ## ----setup--------------------------------------------------------------------
 library(MD2sample)
-B=200 #number of simulation runs
+B=200 
 
 ## -----------------------------------------------------------------------------
 set.seed(123)
@@ -121,6 +121,37 @@ TSextra=list(which="pvalue")
 twosample_power(g, c(0, 0.25, 0.5), B=200, 
     TS=chiTS.disc, TSextra=TSextra, With.p.value = TRUE,
     maxProcessor=1)
+
+## -----------------------------------------------------------------------------
+# generate real and MC data sets:
+f=function(mu) {
+    x=mvtnorm::rmvnorm(100, c(mu, mu))
+    y=mvtnorm::rmvnorm(100, apply(x, 2, mean), cor(x))
+    list(x=x, y=y)
+}
+#True data is a mixture of normal and uniform
+g=function(alpha=0) {
+    x=rbind(mvtnorm::rmvnorm((1-alpha)*100, c(0, 0)),
+            matrix(runif(200*alpha),ncol=2))
+    y=mvtnorm::rmvnorm(100, apply(x, 2, mean), cor(x))
+    list(x=x, y=y)
+}
+# generate two-sample data set
+rnull=function(dta) {
+   x=mvtnorm::rmvnorm(nrow(dta$x), apply(dta$x, 2, mean), cor(dta$x))
+   y=mvtnorm::rmvnorm(nrow(x), apply(x, 2, mean), cor(x))
+   list(x=x, y=y)
+}
+
+## -----------------------------------------------------------------------------
+# Only run these methods for hypbrid problem
+mt=c("KS", "K", "CvM", "AD", "NN1", "NN5", "AZ", "BF", "BG")
+# Null hypothesis is true:
+twosample_power(f, c(0, 1), doMethods = mt, B=200)
+twosample_power(f, c(0, 1), rnull=rnull, B=200)
+# Null hypothesis is false:
+twosample_power(g, c(0, 0.5), doMethods = mt, B=200)
+twosample_power(g, c(0, 0.5), rnull=rnull, B=200)
 
 ## ----eval=FALSE---------------------------------------------------------------
 # run.studies(Continuous=TRUE,

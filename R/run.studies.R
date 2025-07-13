@@ -2,19 +2,22 @@
 #' 
 #' This function runs the case studies included in the package.
 #' 
-#' @param Continuous =TRUE run cases for continuous data
-#' @param study either the name of the study, or its number. If missing all the studies are run.
-#' @param TS routine to calculate test statistics. 
-#' @param TSextra list passed to TS.
-#' @param With.p.value =FALSE does user supplied routine return p values?
-#' @param nsample = 200, desired sample size.
-#' @param alpha =0.05  type I error
+#' For details consult vignette(package="MD2sample")
+#' 
+#' @param Continuous =TRUE, run cases for continuous data.
+#' @param study either the name of the study, or its number in the list. If missing all the studies are run.
+#' @param TS routine to calculate new test statistics. 
+#' @param TSextra list passed to TS (optional).
+#' @param With.p.value =FALSE, does user supplied routine return p values?
+#' @param nsample = 200, desired sample size. 200 is used in included case studies.
+#' @param alpha =0.05,  type I error probability of tests. 0.05 is used in included case studies.
 #' @param param_alt (list of) values of parameter under the alternative hypothesis. 
 #'                  If missing included values are used.
-#' @param SuppressMessages =FALSE, should messages be printed
-#' @param B = 1000
-#' @param  maxProcessor maximum number of cores to use. If missing (the default) no parallel processing is used.
-#' @return A (list of ) matrices of p.values
+#' @param SuppressMessages =FALSE, should informative messages be printed?
+#' @param B = 1000, number of simulation runs.
+#' @param  maxProcessor  number of cores to use. If missing the number of physical cores-1 
+#'             is used. If set to 1 no parallel processing is done.
+#' @return A (list of ) matrices of p.values.
 #' @examples
 #' #The new test is a (included) chi square test:
 #' TSextra=list(which="pval", nbins=rbind(c(3,3), c(4,4)))
