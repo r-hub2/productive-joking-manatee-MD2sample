@@ -6,7 +6,7 @@
 \alias{MD2sample-package}
 \title{MD2sample: Various Methods for the Two Sample Problem in D>1 Dimensions}
 \description{
-The routine twosample_test() in this package runs the two sample test using various test statistic. The p values are found via permutation. The routine twosample_power() allows the calculation of the power in various cases, and plot_power() draws the corresponding power graphs. The routine run.studies allows a user to quickly study the power of a new method and how it compares to some of the standard ones.
+The routine twosample_test() in this package runs the two-sample test using various test statistic for multivariate data. The user can also run several tests and then find a p value adjusted for simultaneous inference. The p values are found via permutation or via the parametric bootstrap. The routine twosample_power() allows the estimation of the power of the tests. The routine run.studies() allows a user to quickly study the power of a new method and how it compares to those included in the package. For details of the methods and references see the included vignettes.
 }
 \author{
 \strong{Maintainer}: Wolfgang Rolke \email{wolfgang.rolke@upr.edu} (\href{https://orcid.org/0000-0002-3514-726X}{ORCID})

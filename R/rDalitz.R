@@ -9,15 +9,20 @@
 #' @return a list of functions
 #' @export
 rDalitz=function(nyadd=0, which=1, addon, n=200, nx=n, ny=n) {
-  options(warn=-1)
+  
   if(which==1) {M=1.97;m1=0.4937;m2=0.4937;m3=0.1396;delta=0.3}
   if(which==2)  {M=3;m1=0.1396;m2=0.4976;m3=0.938;delta=0.2}
   if(which==3)  {M=3;m1=0.3099;m2=0.3101;m3=0.3094;delta=0.2}
+  sq=function(x) {
+     y=rep(NA, length(x))
+     for(i in seq_along(x)) if(x[i]>=0) y[i]=sqrt(x[i])
+     y
+  }
   doCut=function() {
     E2=(m12s-m1^2+m2^2)/(2*sqrt(m12s))
     E3=(M^2-m12s-m3^2+m2^2)/(2*sqrt(m12s))
-    m23max=(E2+E3)^2-(sqrt(E2^2-m2^2)-sqrt(E3^2-m3^2))^2
-    m23min=(E2+E3)^2-(sqrt(E2^2-m2^2)+sqrt(E3^2-m3^2))^2
+    m23max=(E2+E3)^2-(sq(E2^2-m2^2)-sq(E3^2-m3^2))^2
+    m23min=(E2+E3)^2-(sq(E2^2-m2^2)+sq(E3^2-m3^2))^2
     u=cbind(m12s, m23s)
     u=u[u[,2]>m23min & u[,2]<m23max, ]
     u=u[!is.na(u[,1]),]
@@ -29,11 +34,11 @@ rDalitz=function(nyadd=0, which=1, addon, n=200, nx=n, ny=n) {
   m12s=seq(xrange[1], xrange[2], length=3000)
   E2=(m12s-m1^2+m2^2)/(2*sqrt(m12s))
   E3=(M^2-m12s-m3^2+m2^2)/(2*sqrt(m12s))
-  m23max=(E2+E3)^2-(sqrt(E2^2-m2^2)-sqrt(E3^2-m3^2))^2
-  m23min=(E2+E3)^2-(sqrt(E2^2-m2^2)+sqrt(E3^2-m3^2))^2
+  m23max=(E2+E3)^2-(sq(E2^2-m2^2)-sq(E3^2-m3^2))^2
+  m23min=(E2+E3)^2-(sq(E2^2-m2^2)+sq(E3^2-m3^2))^2
   borders=cbind(m12s, m23min, m23max)
-  borders=borders[!is.nan(borders[,2]), ]
-  borders=borders[!is.nan(borders[,3]), ]
+  borders=borders[!is.na(borders[,2]), ]
+  borders=borders[!is.na(borders[,3]), ]
   mbor=nrow(borders)
   # Find uniform data
   u=NULL 
@@ -45,10 +50,7 @@ rDalitz=function(nyadd=0, which=1, addon, n=200, nx=n, ny=n) {
   }
   x=u[1:nx,]
   y=u[(1+nx):(nx+ny),]
-  if(nyadd==0) {
-      options(warn=0)
-      return(list(x=x, y=y, borders=borders))
-  }   
+  if(nyadd==0) return(list(x=x, y=y, borders=borders))
   add_data=as.list(1:4)
   names(add_data)=c("Left Stripe", "Right Stripe",
                     "Bottom Stripe", "Diagonal Stripe")
@@ -56,8 +58,8 @@ rDalitz=function(nyadd=0, which=1, addon, n=200, nx=n, ny=n) {
     m12s=runif(ny, borders[1,1], borders[100,1])
     E2=(m12s-m1^2+m2^2)/(2*sqrt(m12s))
     E3=(M^2-m12s-m3^2+m2^2)/(2*sqrt(m12s))
-    m23max=(E2+E3)^2-(sqrt(E2^2-m2^2)-sqrt(E3^2-m3^2))^2
-    m23min=(E2+E3)^2-(sqrt(E2^2-m2^2)+sqrt(E3^2-m3^2))^2 
+    m23max=(E2+E3)^2-(sq(E2^2-m2^2)-sq(E3^2-m3^2))^2
+    m23min=(E2+E3)^2-(sq(E2^2-m2^2)+sq(E3^2-m3^2))^2 
     m23s=m23min+rbeta(ny, 0.1, 0.1)*(m23max-m23min)
     add_data[[1]]=cbind(m12s, m23s)
 #bottom stripe  
@@ -85,6 +87,5 @@ rDalitz=function(nyadd=0, which=1, addon, n=200, nx=n, ny=n) {
   k=length(addon)
   y=y[1:(ny-nyadd*k), ]
   for(i in addon) y=rbind(y, add_data[[i]][1:nyadd,])
-  options(warn=0)
   list(x=x, y=y, borders=borders)
 }
